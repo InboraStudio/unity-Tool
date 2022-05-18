@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Light_Flirking : MonoBehaviour
+{
+    public bool IsFlickering = false;
+    public float timeDelay;
+
+    void Update()
+    {
+        if (IsFlickering == false)
+        {
+            StartCoroutine(FlirkingLight());
+        }
+    }
+    IEnumerator FlirkingLight()
+    {
+        IsFlickering = true; 
+        this.gameObject.GetComponent<Light>().enabled = false;
+        timeDelay = Random.Range(0.01f, 0.1f);
+        yield return new WaitForSeconds(timeDelay);
+        this.gameObject.GetComponent<Light>().enabled = true;
+        timeDelay = Random.Range(0.01f, 0.1f);
+        yield return new WaitForSeconds(timeDelay);
+        IsFlickering = false;
+    }   
+}
